@@ -25,7 +25,7 @@ CONFIG_RTL8192D = n
 CONFIG_RTL8723A = y
 CONFIG_RTL8188E = n
 
-CONFIG_POWER_SAVING = y
+CONFIG_POWER_SAVING = n
 CONFIG_USB_AUTOSUSPEND = n
 CONFIG_HW_PWRP_DETECTION = n
 CONFIG_WIFI_TEST = n
@@ -38,7 +38,7 @@ CONFIG_EXT_CLK = n
 CONFIG_FTP_PROTECT = n
 CONFIG_WOWLAN = n
 
-CONFIG_PLATFORM_I386_PC = y
+CONFIG_PLATFORM_I386_PC = n
 CONFIG_PLATFORM_ANDROID_X86 = n
 CONFIG_PLATFORM_ARM_S3C2K4 = n
 CONFIG_PLATFORM_ARM_PXA2XX = n
@@ -69,6 +69,7 @@ CONFIG_PLATFORM_ARM_SUN6I = n
 CONFIG_PLATFORM_ACTIONS_ATM702X = n
 CONFIG_PLATFORM_MN10300 = n
 CONFIG_PLATFORM_ACTIONS_ATV5201 = n
+CONFIG_PLATFORM_ARM_LS1021 = y
 
 CONFIG_DRVEXT_MODULE = n
 
@@ -462,6 +463,14 @@ KVER  := $(KERNEL_VER)
 KSRC:= $(CFGDIR)/../../kernel/linux-$(KERNEL_VER)
 endif
 
+
+ifeq ($(CONFIG_PLATFORM_ARM_LS1021), y)
+ARCH := arm
+#CROSS_COMPILE :=/home/aukey/buildroot-2015.05/output/host/usr/bin/arm-edge-linux-gnueabihf-
+#KSRC:=/home/aukey/buildroot-2015.05/output/build/linux-custom
+MODULE_NAME := wlan
+endif
+
 ifneq ($(USER_MODULE_NAME),)
 MODULE_NAME := $(USER_MODULE_NAME)
 endif
@@ -541,4 +550,3 @@ clean: $(clean_more)
 	cd hal ; rm -fr *.mod.c *.mod *.o .*.cmd *.ko
 	cd os_dep ; rm -fr *.mod.c *.mod *.o .*.cmd *.ko
 endif
-
